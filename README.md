@@ -12,13 +12,15 @@ The heap always ends with a block of user data length of zero.
 Block have no fixed size, but they have to be multiple of the header size (8bytes currently).
 Each block of data has a header with metadata : size of the block including header, status of use.
 
-Invariants : 
+### Invariants : 
  - Each byte of the heap belongs to one and only one block;
  - The sum of the size of all blocks including the headers equals the size of the heap;
  - The address of each block sorted in the linked list should be increasing.
  - Blocks are contiguous : a new block starts when the previous ends
 
-Split operation preserves those invariants, by creating two blocks which sizes summed equals the originary block size and exactly separated by length bytes on the heap.
+### Operations on the heap :
+- Split operation (block split) preserves those invariants, by creating two blocks which sizes summed equals the originary block size and exactly separated by length bytes on the heap.
+- Merge right operation (block merge right) preserves the invariants, by assigning a size of the remaining block equals to the previous size plus merged block size. Merged block bytes are not erased but the block is removed from block geometrical list by assigning a bigger length to the previous one.
 
 Block are allocated on first match based on the way we loop through the array.
 Once a matching block is found, if usefull we split it to the upper mulptiple of header size and create a new free block if needed.
