@@ -1,0 +1,19 @@
+#excutables
+
+exercice_1
+exercice_list_string
+pointeurs
+main
+
+:
+
+*.o
+
+#build
+build/*
+
+
+
+#vim files
+*.swp
+*.swn
