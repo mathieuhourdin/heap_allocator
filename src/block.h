@@ -11,5 +11,7 @@ typedef struct Block {
 
 Block* block_get_next(Block *block);
 void block_split(Block *block, size_t nbytes);
+Block* block_new(void *position, int size);
+Block* block_merge_right(Block *first_block, Block *second_block);
 
 #endif

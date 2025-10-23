@@ -2,6 +2,13 @@
 
 #include "block.h"
 
+Block* block_new(void *position, int size) {
+    Block *block = (Block*)position;
+    block->size = size;
+    block->free = 0;
+    return block;
+}
+
 Block* block_get_next(Block *block) {
     if (block->size == sizeof(Block)) {
         printf("Reached the end of the heap");
@@ -9,6 +16,11 @@ Block* block_get_next(Block *block) {
     }
     Block *next = (Block*)(char *)block + block->size;
     return next;
+}
+
+Block* block_merge_right(Block *first_block, Block *second_block) {
+    first_block->size = second_block->size;
+    return first_block;
 }
 
 void block_split(Block *block, size_t nbytes) {

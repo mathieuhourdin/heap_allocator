@@ -9,13 +9,8 @@ void *heap = NULL;
 
 void my_heap_init(size_t size) {
     heap = malloc(size);
-    Block *block = heap;
-    block->size = (int)size - sizeof(Block);
-    block->free = 1;
-
-    Block *end_block = (Block *)(char *)heap + (int)size - sizeof(Block);
-    end_block->size = sizeof(Block);
-    end_block->free = 0;
+    block_new(heap, (int)size - sizeof(Block));
+    block_new((char *)heap + (int)size - sizeof(Block), sizeof(Block));
 }
 
 void* heap_get_next_matching_block(size_t nbytes) {

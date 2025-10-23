@@ -19,7 +19,7 @@ void my_free(void* ptr) {
     Block *block = (Block*)((char *)ptr - sizeof(Block));
     Block *next = block_get_next(block);
     if (next->free) {
-        block->size += next->size;
+        block_merge_right(block, next);
     }
     block->free = 1;
 };
@@ -38,5 +38,4 @@ int main() {
     my_free(ptr_2);
     my_heap_dump();
     my_heap_destroy();
-
 }
