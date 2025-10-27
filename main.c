@@ -24,6 +24,20 @@ void my_free(void* ptr) {
     block->free = 1;
 };
 
+void test_heap() {
+    void** list = my_alloc(10 * sizeof(void*));
+
+    for (int i = 0; i < 10; i++) {
+        list[i] = (void*)my_alloc(5 * i);
+    }
+    my_heap_dump();
+    for (int i = 0; i < 10; i++) {
+        my_heap_dump();
+        my_free(list[i]);
+    }
+    my_free(list);
+}
+
 int main() {
 
     printf("Sizeof Block : %d\n", (int)sizeof(Block));
@@ -36,6 +50,8 @@ int main() {
     printf("Ptr_2 : %p\n", ptr_2);
     my_heap_dump();
     my_free(ptr_2);
+    my_heap_dump();
+    test_heap();
     my_heap_dump();
     my_heap_destroy();
 }

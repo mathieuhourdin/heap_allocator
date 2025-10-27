@@ -1,6 +1,6 @@
 # === Compiler configuration ===
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -I./src
+CFLAGS = -Wall -Wextra -g -O0 -I./src
 
 # === Project structure ===
 SRC_DIR = src
