@@ -37,7 +37,7 @@ void my_heap_dump(void) {
     while (block) {
         printf(
                 "Block at address %p (offset %d) is %d free and of size %d and next is : %p\n",
-                block, offset, block->free, block->size, block 
+                block, offset, block->free, block->size, block_get_next(block)
                 );
         offset += block->size; 
         block = block_get_next(block);

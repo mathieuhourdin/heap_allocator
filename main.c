@@ -11,17 +11,14 @@ void* my_alloc(size_t nbytes) {
     Block *matching_block = heap_get_next_matching_block(nbytes);
     block_split(matching_block, nbytes);
     matching_block->free = 0;
+    block_get_next(matching_block)->left_free = 0;
     void *user_ptr = ((char *)matching_block + sizeof(Block));
     return user_ptr;
 };
 
 void my_free(void* ptr) {
     Block *block = (Block*)((char *)ptr - sizeof(Block));
-    Block *next = block_get_next(block);
-    if (next->free) {
-        block_merge_right(block, next);
-    }
-    block->free = 1;
+    block_free(block);
 };
 
 void test_heap() {
