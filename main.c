@@ -18,7 +18,7 @@ void* my_alloc(size_t nbytes) {
 
 void my_free(void* ptr) {
     Block *block = (Block*)((char *)ptr - sizeof(Block));
-    block_free(block);
+    block_free_and_merge(block);
 };
 
 void test_heap() {

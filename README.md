@@ -21,6 +21,9 @@ Each block of data has a header with metadata : size of the block including head
 ### Operations on the heap :
 - Split operation (block split) preserves those invariants, by creating two blocks which sizes summed equals the originary block size and exactly separated by length bytes on the heap.
 - Merge right operation (block merge right) preserves the invariants, by assigning a size of the remaining block equals to the previous size plus merged block size. Merged block bytes are not erased but the block is removed from block geometrical list by assigning a bigger length to the previous one.
+- Merge left operation preserves the invariants by assigning a size of the left block equals to previous left size plus block size. This operation implies to loop through the blocks from the start of the heap. It is triggered only if a block has a left block free.
+
+We should decide more precisely if merge right and left could apply to block that are not free or if they should check that the merged block are free before executing the merge.
 
 Block are allocated on first match based on the way we loop through the array.
 Once a matching block is found, if usefull we split it to the upper mulptiple of header size and create a new free block if needed.
